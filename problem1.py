@@ -1,26 +1,41 @@
-class Production_Optimization:
-    def __init__(self) -> None:
-        
-    def Production_Optimization(self, Durations: list[int], stations: int) -> int:
-        lower_bound = max(Durations)
-        higher_bound = sum(Durations)
+class ProductionOptimization:
+    def __init__(self):
+        pass
+
+    def optimize_production(self, durations: list[int], stations: int) -> int:
+        lower_bound = max(durations)
+        upper_bound = sum(durations)
         result = float("inf")
-        
-        while lower_bound <= higher_bound:
-            middle_point = lower_bound + ((higher_bound - lower_bound) // 2) 
-            if self.can_divide(middle_point, Durations, stations):
+
+        while lower_bound <= upper_bound:
+            middle_point = lower_bound + ((upper_bound - lower_bound) // 2)
+            if self.can_divide(middle_point, durations, stations):
                 result = middle_point
-                higher_bound = middle_point - 1
+                upper_bound = middle_point - 1
             else:
                 lower_bound = middle_point + 1
         return result
-    
-    def can_divide(self, longest_estimate_value: int, Durations: list[int], stations: int):
-        number_of_station = 0
-        duration_of_current_station = 0
-        for duration in Durations:
-            duration_of_current_station += duration
-            if duration_of_current_station >= longest_estimate_value:
-                number_of_station += 1
-                duration_of_current_station = duration
-        return number_of_station + 1 <= stations 
+
+    def can_divide(self, longest_estimate: int, durations: list[int], stations: int) -> bool:
+        num_stations = 1
+        duration_current_station = 0
+
+        for duration in durations:
+            if duration_current_station + duration <= longest_estimate:
+                duration_current_station += duration
+            else:
+                num_stations += 1
+                duration_current_station = duration
+                if num_stations > stations:
+                    return False
+        return True
+
+def main():
+    optimizer = ProductionOptimization()
+    durations = [15, 15, 30, 30, 45]  # Example durations
+    stations = 3  # Example number of stations
+    result = optimizer.optimize_production(durations, stations)
+    print("Longest duration of a single station in the assembly line after optimizing the line is:", result)
+
+if __name__ == "__main__":
+    main()
