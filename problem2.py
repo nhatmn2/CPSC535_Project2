@@ -1,3 +1,7 @@
+#name: Nathan Nguyen
+#email: nhatmn2@csu.fullerton.edu
+#class: Mon 7:00pm - 9:45pm
+
 class LongestStringChain:
     def Depth_First_Search(self, i, strings, word_hashmap, memo):
         # If the result for this word is already computed, return it (memoization)
@@ -15,7 +19,7 @@ class LongestStringChain:
             #if predecessor in word_hashMap then we recursively find the maximum chain length and also the string chain sequence for the predecessor
             if predecessor in word_hashmap:
                 current_chain_length, current_string_chain = self.Depth_First_Search(word_hashmap[predecessor], strings, word_hashmap, memo)
-		        #Update the maximum_chain_length and string_chain if longer than the current maximum
+                #Update the maximum_chain_length and string_chain if longer than the current maximum
                 if current_chain_length + 1 > maximum_chain_length:
                     maximum_chain_length = current_chain_length + 1
                     string_chain = [strings[i]] + current_string_chain

@@ -1,9 +1,13 @@
+#name: Nathan Nguyen
+#email: nhatmn2@csu.fullerton.edu
+#class: Mon 7:00pm - 9:45pm
+
 class ProductionOptimization:
     def __init__(self):
         pass
 
     def optimize_production(self, durations: list[int], stations: int) -> int:
-	    #we will define the lower bound and the higher bound to find the longest station
+        #we will define the lower bound and the higher bound to find the longest station
         #the longest duration of the single station can be between the longest_durations of a single station to the total summation of all durations in the Durations[] array.
 
         lower_bound = max(durations)
